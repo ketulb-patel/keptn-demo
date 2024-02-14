@@ -1,0 +1,62 @@
+apiVersion: lifecycle.keptn.sh/v1beta1
+kind: KeptnTaskDefinition
+metadata:
+  name: kafka-check
+spec:
+  function:
+    httpRef:
+      url: https://raw.githubusercontent.com/keptn/lifecycle-toolkit/main/runtimes/deno-runtime/samples/ts/dns.ts
+    parameters:
+      map:
+        host: example-kafka
+
+
+# apiVersion: lifecycle.keptn.sh/v1alpha2
+# kind: KeptnTaskDefinition
+# metadata:
+#   name: kafka-check
+# spec:
+#   function:
+#     inline:
+#       code: |
+
+#         // wait_for_kafka.ts
+#         import { Kafka } from 'https://deno.land/x/kafkasaur/index.ts';
+
+#         const kafkaBrokers = ['example-kafka:9092'];
+
+#         async function waitForKafka() {
+#           let connected = false;
+#           let attempts = 0;
+
+#           const kafka = new Kafka({
+#             clientId: 'kafka-waiter',
+#             brokers: kafkaBrokers,
+#           });
+
+#           while (!connected && attempts < 15) { // 15 attempts with a 2-second delay each
+#             try {
+#               const admin = kafka.admin();
+#               await admin.connect();
+#               await admin.disconnect();
+#               connected = true;
+#             } catch (error) {
+#               console.log("Waiting for Kafka...");
+#               await sleep(2000);
+#               attempts++;
+#             }
+#           }
+
+#           if (connected) {
+#             console.log("Connected to Kafka!");
+#           } else {
+#             console.error("Failed to connect to Kafka after multiple attempts.");
+#             Deno.exit(1);
+#           }
+#         }
+
+#         function sleep(ms: number) {
+#           return new Promise((resolve) => setTimeout(resolve, ms));
+#         }
+
+#         waitForKafka();

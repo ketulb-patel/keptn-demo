@@ -1,0 +1,26 @@
+apiVersion: lifecycle.keptn.sh/v1beta1
+kind: KeptnAppContext
+metadata:
+  name: "otel-demo-applicaton" # created a resource with the same name as KeptnApp
+  namespace: "otel-demo"
+spec:
+  preDeploymentTasks:    # moved pre/post-deployment tasks and evaluations
+    - adservice-check
+    - cartservice-check
+    - checkout-check
+    - currency-check
+    - featureflag-check
+    # - frontend-check
+    - kafka-check
+    - payment-check
+    # - postgres-check
+    - productcatalogservice-check
+    - recommandation-check
+    - redis-check
+    - shipping-check
+  # preDeploymentEvaluations:
+  #   - pre-deployment-evaluation
+  # postDeploymentTasks:
+  #   - post-deployment-task
+  # postDeploymentEvaluations:
+  #   - post-deployment-evaluation
